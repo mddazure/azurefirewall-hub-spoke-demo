@@ -1,0 +1,281 @@
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters":{
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+              "description": "Location for all resources."
+            }
+        } 
+    },
+    "variables":{
+         "fwPolicy_name":"fw_policy"
+    },
+
+    "resources":[
+
+
+
+{
+    "type": "Microsoft.Network/FirewallPolicies",
+    "apiVersion": "2020-11-01",
+    "name": "[variables('fwPolicy_name')]",
+    "location": "[parameters('location')]",
+    "properties":{
+        "snat": {
+            "privateRanges": [
+                "IANAPrivateRanges","200.100.50.0/24"
+                ]
+        }, 
+        "threatIntelMode": "Alert",
+        "threatIntelWhitelist": {
+            "ipAddresses": [
+
+                ],
+            "fqdns": [
+                ]
+        },
+        "dnsSettings": {
+            "servers": [
+            ],
+            "enableProxy": false
+        },
+        "sku": {
+            "tier": "Premium"
+        },
+        "intrusionDetection": {
+            "mode": "Alert",
+            "configuration": {
+            "signatureOverrides": [
+                {
+                "id": "2525004",
+                "mode": "Deny"
+                }
+                ],
+            "bypassTrafficSettings": [
+                {
+                "name": "bypassRule1",
+                "description": "Rule 1",
+                "protocol": "TCP",
+                "sourceAddresses": [
+                    "1.2.3.4"
+                ],
+                "destinationAddresses": [
+                    "5.6.7.8"
+                ],
+                "destinationPorts": [
+                    "*"
+                ]
+                }      
+            ] 
+            }
+        }
+        
+    },
+    "resources":[
+        {
+                    "apiVersion": "2020-05-01",
+					"type": "ruleCollectionGroups",
+					"name": "ApplicationPolicyRules",
+					"location": "[parameters('location')]",
+					"dependsOn": [
+						"[resourceId('Microsoft.Network/firewallPolicies', variables('fwPolicy_name'))]"
+					],
+					"properties": {
+						"priority": 200,
+						"ruleCollections": [
+                            {
+                                "name": "AllowApplication",
+								"priority": 101,
+								"ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+								"action": {
+									"type": "Allow"
+								},
+								"rules": [
+									{ 
+										"ruleType": "ApplicationRule", 
+										"name": "AllowWeb", 
+										"protocols":[ 
+											{ 
+												"protocolType":"Https", 
+												"port":443 
+											}
+										],
+										"targetUrls":[ 
+											"*google.com/maps*",
+											"www.microsoft.com/en-us/surface/devices/surface-duo"
+										],
+										"sourceAddresses":[ 
+											"*"
+										],
+										"terminateTLS":true 
+									},
+									{
+										"ruleType": "ApplicationRule",
+										"name": "AllowDemo",
+										"protocols": [
+											{
+												"protocolType": "Https",
+												"port": 443
+											},
+											{
+												"protocolType": "Http",
+												"port": 80
+											}
+										],
+										"targetUrls": [
+											"server.2020-private-preview.com"
+										],
+										"sourceAddresses": [
+											"*"
+										],
+										"terminateTLS": true
+									}
+								]
+							}
+                        ]
+                    }
+        },
+        {
+                    "apiVersion": "2020-05-01",
+					"type": "ruleCollectionGroups",
+					"name": "NetworkPolicyRules",
+					"location": "[parameters('location')]",
+					"dependsOn": [
+						"[resourceId('Microsoft.Network/firewallPolicies', variables('fwPolicy_name'))]"
+					],
+					"properties": {
+						"priority": 300,
+						"ruleCollections": [
+                            {
+                            "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                            "name": "network_filter_rule_collection",
+                            "action":{
+                                "type": "Allow"
+                            },
+                            "priority":100,
+                            "rules": [
+                                {
+                                    "name": "spoke2-spoke1",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "192.168.2.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "192.168.1.0/24"
+                                    ],                                    
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "name": "spoke1-spoke2",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "192.168.1.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "192.168.2.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "name": "spoke1-onprem",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "192.168.1.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "172.16.0.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "name": "spoke2-onprem",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "192.168.2.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "172.16.0.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "name": "fwtest-to-onprem",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "10.100.0.4"
+                                    ],
+                                    "destinationAddresses": [
+                                        "172.16.0.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "name": "onprem-spoke1",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "172.16.0.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "192.168.1.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "name": "onprem-spoke2",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "Any"
+                                    ],
+                                    "sourceAddresses": [
+                                        "172.16.0.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "192.168.2.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                }
+                            ]                 
+                            }
+                        ]
+                    }
+                }  
+            ]
+        }
+    ]
+}

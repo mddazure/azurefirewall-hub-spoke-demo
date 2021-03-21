@@ -1,0 +1,132 @@
+{
+    "properties": {
+    "priority": 100,
+    "location":"westeurope",
+     "rulesCollections": [
+     {
+         "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+         "location":"westeurope",
+         "name": "network_filter_rule_collection",
+         "action":{
+             "type": "Allow"
+         },
+         "priority":100,
+         "rules": [
+                 {
+                     "name": "spoke2-spoke1",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "192.168.2.0/24"
+                     ],
+                     "destinationAddresses": [
+                         "192.168.1.0/24"
+                     ],                                    
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 },
+                 {
+                     "name": "spoke1-spoke2",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "192.168.1.0/24"
+                     ],
+                     "destinationAddresses": [
+                         "192.168.2.0/24"
+                     ],
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 },
+                 {
+                     "name": "spoke1-onprem",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "192.168.1.0/24"
+                     ],
+                     "destinationAddresses": [
+                         "172.16.0.0/24"
+                     ],
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 },
+                 {
+                     "name": "spoke2-onprem",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "192.168.2.0/24"
+                     ],
+                     "destinationAddresses": [
+                         "172.16.0.0/24"
+                     ],
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 },
+                 {
+                     "name": "fwtest-to-onprem",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "10.100.0.4"
+                     ],
+                     "destinationAddresses": [
+                         "172.16.0.0/24"
+                     ],
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 },
+                 {
+                     "name": "onprem-spoke1",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "172.16.0.0/24"
+                     ],
+                     "destinationAddresses": [
+                         "192.168.1.0/24"
+                     ],
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 },
+                 {
+                     "name": "onprem-spoke2",
+                     "ruleType": "NetworkRule",
+                     "protocols": [
+                         "Any"
+                     ],
+                     "sourceAddresses": [
+                         "172.16.0.0/24"
+                     ],
+                     "destinationAddresses": [
+                         "192.168.2.0/24"
+                     ],
+                     "destinationPorts": [
+                         "*"
+                     ]
+                 }
+             ]   
+     }
+     
+ ]
+}
+}

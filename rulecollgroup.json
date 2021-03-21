@@ -1,0 +1,247 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+
+"parameters":{
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+              "description": "Location for all resources."
+            }
+        } 
+    },
+    "variables":{
+         "fwPolicy_name":"fw_policy"
+    },
+
+
+"resources":[
+    {
+        "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+        "apiVersion": "2020-05-01",
+        "name": "[concat(variables('fwPolicy_name'),'/demo_rule_collection_group')]",
+        "location": "[parameters('location')]",
+        "dependsOn":[
+            "[resourceId('Microsoft.Network/FirewallPolicies',variables('fwPolicy_name'))]"
+        ],
+        "properties": {
+           "priority": 100,
+            "rulesCollections": [
+            {
+                "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                "name": "network_filter_rule_collection",
+                "action":{
+                    "type": "Allow"
+                },
+                "priority":100,
+                "rules": [
+                        {
+                            "name": "spoke2-spoke1",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "192.168.2.0/24"
+                            ],
+                            "destinationAddresses": [
+                                "192.168.1.0/24"
+                            ],                                    
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "name": "spoke1-spoke2",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "192.168.1.0/24"
+                            ],
+                            "destinationAddresses": [
+                                "192.168.2.0/24"
+                            ],
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "name": "spoke1-onprem",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "192.168.1.0/24"
+                            ],
+                            "destinationAddresses": [
+                                "172.16.0.0/24"
+                            ],
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "name": "spoke2-onprem",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "192.168.2.0/24"
+                            ],
+                            "destinationAddresses": [
+                                "172.16.0.0/24"
+                            ],
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "name": "fwtest-to-onprem",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "10.100.0.4"
+                            ],
+                            "destinationAddresses": [
+                                "172.16.0.0/24"
+                            ],
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "name": "onprem-spoke1",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "172.16.0.0/24"
+                            ],
+                            "destinationAddresses": [
+                                "192.168.1.0/24"
+                            ],
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "name": "onprem-spoke2",
+                            "ruleType": "NetworkRule",
+                            "protocols": [
+                                "Any"
+                            ],
+                            "sourceAddresses": [
+                                "172.16.0.0/24"
+                            ],
+                            "destinationAddresses": [
+                                "192.168.2.0/24"
+                            ],
+                            "destinationPorts": [
+                                "*"
+                            ]
+                        }
+                    ]   
+            },
+            {
+            "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+            "name": "app_filter_rule_collection",
+            "action":{
+                "type": "Allow"
+                },
+            "priority":200,
+            "rules": [
+            {
+                "name": "google",
+                "ruleType": "ApplicationRule",
+                "protocols": [
+                    {
+                        "protocolType": "Http",
+                        "port": 80
+                    },
+                    {
+                        "protocolType": "Https",
+                        "port": 443
+                    }
+                ],
+                "targetFqdns": [
+                    "www.google.com"
+                ],
+                "sourceAddresses": [
+                    "192.168.1.0/24"
+                ]
+            },
+            {
+                "name": "onprem",
+                 "ruleType": "ApplicationRule",
+                "protocols": [
+                    {
+                        "protocolType": "Http",
+                        "port": 80
+                    },
+                    {
+                        "protocolType": "Https",
+                        "port": 443
+                    }
+                ],
+                "targetFqdns": [
+                    "172.16.0.4"
+                ],
+                "sourceAddresses": [
+                    "*"
+                ]
+            },
+            {
+                "name": "googlefromonprem",
+                 "ruleType": "ApplicationRule",
+                "protocols": [
+                    {
+                        "protocolType": "Http",
+                        "port": 80
+                    },
+                    {
+                        "protocolType": "Https",
+                        "port": 443
+                    }
+                ],
+                "targetFqdns": [
+                    "www.google.com"
+                ],
+                "sourceAddresses": [
+                    "172.16.0.4"
+                ]
+            },
+            {
+                "name": "allowall",
+                 "ruleType": "ApplicationRule",
+                "protocols": [
+                    {
+                        "protocolType": "Http",
+                        "port": 80
+                    },
+                    {
+                        "protocolType": "Https",
+                        "port": 443
+                    }
+                ],
+                "targetFqdns": [
+                    "*"
+                ],
+                "sourceAddresses": [
+                    "*"
+                ]
+            }
+        ]
+    }
+    ]
+}
+}
+    ]
+}
