@@ -1,4 +1,4 @@
-# Azurefirewall Hub-and-Spoke demo
+# Azure Firewall hub-and-spoke demo
 ## Overview and deployed resources
 
 This template creates an Azure Firewall demonstration setup. The topology consists of a hub VNET with AZFW, two peered spokes with a VM in each, and a VNET simulating an on-premise location connected through S2SVPN. Bastion is deployed in each of the spoke and on-prem VNETs, to connect to the VMs without the need to for public ip's.
