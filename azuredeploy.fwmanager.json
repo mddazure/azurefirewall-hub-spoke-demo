@@ -68,6 +68,7 @@
         "virtualNetworks_azfw_spoke2_name": "azfw-spoke2-vnet",
         "virtualNetworks_azfw_on_prem_name": "azfw-on-prem-vnet",
         "storageAccounts_azfwdemodiag_name": "[uniquestring(resourceGroup().id)]",
+        "storageAccounts_azfwdemodiag_name_onprem": "[concat('onprem',uniquestring(resourceGroup().id))]",
         
         "publicIPAddresses_azfw_hub_ip_name": "azfw-hub-ip",
         "publicIPAddresses_azfw_spoke1_ip_name": "azfw-spoke1-ip",
@@ -306,6 +307,36 @@
                 }
             }
         },
+       {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-04-01",
+            "name": "[variables('storageAccounts_azfwdemodiag_name_onprem')]",
+            "location": "[parameters('location_onprem')]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2019-09-01",
@@ -570,13 +601,26 @@
             }
         },
         {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-04-01",
+            "name": "[concat(variables('storageAccounts_azfwdemodiag_name_onprem'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_azfwdemodiag_name_onprem'))]"
+            ],
+            "properties": {
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
             "name": "[variables('virtualMachines_onprem_name')]",
             "location": "[parameters('location_onprem')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaces_onprem_name'))]",
-                "[resourceId('Microsoft.Storage/StorageAccounts', variables('storageAccounts_azfwdemodiag_name'))]"
+                "[resourceId('Microsoft.Storage/StorageAccounts', variables('storageAccounts_azfwdemodiag_name_onprem'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -610,7 +654,7 @@
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true,
-                        "storageUri": "[concat('https://', variables('storageAccounts_azfwdemodiag_name'), '.blob.core.windows.net/')]"
+                        "storageUri": "[concat('https://', variables('storageAccounts_azfwdemodiag_name_onprem'), '.blob.core.windows.net/')]"
                     }
                 }
             }
