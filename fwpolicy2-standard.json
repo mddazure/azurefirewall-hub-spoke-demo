@@ -1,0 +1,121 @@
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters":{
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+              "description": "Location for all resources."
+            }
+        } 
+    },
+    "variables":{
+         "fwPolicy_name":"fw_policy-std"
+    },
+
+    "resources":[
+
+
+
+{
+    "type": "Microsoft.Network/FirewallPolicies",
+    "apiVersion": "2020-11-01",
+    "name": "[variables('fwPolicy_name')]",
+    "location": "[parameters('location')]",
+    "properties":{
+        "snat": {
+            "privateRanges": [
+                "IANAPrivateRanges","200.100.50.0/24"
+                ]
+        }, 
+        "threatIntelMode": "Alert",
+        "threatIntelWhitelist": {
+            "ipAddresses": [
+
+                ],
+            "fqdns": [
+                ]
+        },
+        "dnsSettings": {
+            "servers": [
+            ],
+            "enableProxy": false
+        },
+        "sku": {
+            "tier": "Standard"
+        }
+        
+    },
+    "resources":[
+        {
+                    "apiVersion": "2020-05-01",
+					"type": "ruleCollectionGroups",
+					"name": "NetworkPolicyRules",
+					"location": "[parameters('location')]",
+					"dependsOn": [
+						"[resourceId('Microsoft.Network/firewallPolicies', variables('fwPolicy_name'))]" 
+					],
+					"properties": {
+						"priority": 300,
+						"ruleCollections": [
+                            {
+                            "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                            "name" : "network_filter_rule_collection_deny",
+                            "action":{
+                                "type": "Deny"
+                            },
+                            "priority":105,
+                            "rules": [
+                                                                {
+                                    "name": "spoke2-spoke1",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "TCP"
+                                    ],
+                                    "sourceAddresses": [
+                                        "192.168.2.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "192.168.1.0/24"
+                                    ],                                    
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                }
+                            ]
+                            },
+                            {
+                            "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                            "name": "network_filter_rule_collection_allow",
+                            "action":{
+                                "type": "Allow"
+                            },
+                            "priority":110,
+                            "rules": [
+                                {
+                                    "name": "spoke1-spoke2",
+                                    "ruleType": "NetworkRule",
+                                    "ipProtocols": [
+                                        "TCP"
+                                    ],
+                                    "sourceAddresses": [
+                                        "192.168.1.0/24"
+                                    ],
+                                    "destinationAddresses": [
+                                        "192.168.2.0/24"
+                                    ],
+                                    "destinationPorts": [
+                                        "*"
+                                    ]
+                                }                              
+                            ]                 
+                            }
+                        ]
+                    }
+                }  
+            ]
+        }
+    ]
+}

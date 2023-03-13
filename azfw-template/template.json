@@ -1,0 +1,91 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "azureFirewallPolicyName": {
+            "type": "String",
+            "metadata": {
+                "description": "Name of the Azure Firewall Policy"
+            }
+        },
+        "DnatRuleCollection": {
+            "type": "Array",
+            "metadata": {
+                "description": "Dnat collection Rules"
+            }
+        },
+        "NetworkRuleCollection": {
+            "type": "Array",
+            "metadata": {
+                "description": "Network collection Rules"
+            }
+        },
+        "ApplicationRuleCollection": {
+            "type": "Array",
+            "metadata": {
+                "description": "Application collection Rules"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('azureFirewallPolicyName'), '/DefaultDnatRuleCollectionGroup')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "priority": 100,
+                "copy": [
+                    {
+                        "name": "ruleCollections",
+                        "count": "[length(parameters('DnatRuleCollection'))]",
+                        "input": "[parameters('DnatRuleCollection')[copyIndex('ruleCollections')]]"
+                    }
+                ]
+            },
+            "condition": "[greater(length(parameters('DnatRuleCollection')), 0)]"
+        },
+        {
+            "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('azureFirewallPolicyName'), '/DefaultNetworkRuleCollectionGroup')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/firewallPolicies/ruleCollectionGroups', parameters('azureFirewallPolicyName'), 'DefaultDnatRuleCollectionGroup')]"
+            ],
+            "properties": {
+                "priority": 200,
+                "copy": [
+                    {
+                        "name": "ruleCollections",
+                        "count": "[length(parameters('NetworkRuleCollection'))]",
+                        "input": "[parameters('NetworkRuleCollection')[copyIndex('ruleCollections')]]"
+                    }
+                ]
+            },
+            "condition": "[greater(length(parameters('NetworkRuleCollection')), 0)]"
+        },
+        {
+            "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('azureFirewallPolicyName'), '/DefaultApplicationRuleCollectionGroup')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/firewallPolicies/ruleCollectionGroups', parameters('azureFirewallPolicyName'), 'DefaultNetworkRuleCollectionGroup')]"
+            ],
+            "properties": {
+                "priority": 300,
+                "copy": [
+                    {
+                        "name": "ruleCollections",
+                        "count": "[length(parameters('ApplicationRuleCollection'))]",
+                        "input": "[parameters('ApplicationRuleCollection')[copyIndex('ruleCollections')]]"
+                    }
+                ]
+            },
+            "condition": "[greater(length(parameters('ApplicationRuleCollection')), 0)]"
+        }
+    ],
+    "outputs": {}
+}

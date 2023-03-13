@@ -154,13 +154,13 @@
 						"ruleCollections": [
                             {
                             "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
-                            "name": "network_filter_rule_collection",
+                            "name" : "network_filter_rule_collection_deny",
                             "action":{
-                                "type": "Allow"
+                                "type": "Deny"
                             },
-                            "priority":100,
+                            "priority":101,
                             "rules": [
-                                {
+                                                                {
                                     "name": "spoke2-spoke1",
                                     "ruleType": "NetworkRule",
                                     "ipProtocols": [
@@ -175,7 +175,17 @@
                                     "destinationPorts": [
                                         "*"
                                     ]
-                                },
+                                }
+                            ]
+                            },
+                            {
+                            "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                            "name": "network_filter_rule_collection_allow",
+                            "action":{
+                                "type": "Allow"
+                            },
+                            "priority":100,
+                            "rules": [
                                 {
                                     "name": "spoke1-spoke2",
                                     "ruleType": "NetworkRule",

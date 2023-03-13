@@ -1,0 +1,2825 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "azureFirewallPolicyName": {
+            "value": "azfwpolicy-nbfw-prd-noeu-01"
+        },
+        "dnatRuleCollection": {
+            "value": [
+                {
+                    "name": "generic-dnat-120",
+                    "priority": 120,
+                    "ruleCollectionType": "FirewallPolicyNatRuleCollection",
+                    "action": {
+                        "type": "Dnat"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NatRule",
+                            "name": "Akamai-to-Iblx-Ext,DNS-RITM0182702",
+                            "translatedAddress": "10.73.5.20",
+                            "translatedPort": "53",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [
+                                "20.103.163.112",
+                                "23.14.128.185",
+                                "23.205.121.134",
+                                "23.207.197.166",
+                                "72.247.124.98",
+                                "104.122.95.88",
+                                "104.122.95.89",
+                                "23.73.133.237",
+                                "23.73.134.237",
+                                "23.73.133.141",
+                                "23.73.134.141",
+                                "194.151.228.2",
+                                "194.151.228.50",
+                                "194.151.228.34",
+                                "194.151.228.18",
+                                "72.245.0.10",
+                                "77.249.194.23"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "20.107.146.104"
+                            ],
+                            "destinationPorts": [
+                                "53"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "networkRuleCollection": {
+            "value": [
+                {
+                    "name": "integration-apim-prd-allow-10000",
+                    "priority": 10000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "ApimNoeu-to-ApimSmtp,SMTP-RITM0148871",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.73.19.0/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [],
+                            "destinationIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHNL_Apim_Smtp')]"
+                            ],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "25",
+                                "587",
+                                "25028"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "integration-apim-nonprd-allow-10500",
+                    "priority": 10500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "ApimNoeu-to-ApimSmtp,SMTP-RITM0148871",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.73.18.0/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [],
+                            "destinationIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHNL_Apim_Smtp')]"
+                            ],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "25",
+                                "587",
+                                "25028"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "enablement-connectivity-prd-allow-10060",
+                    "priority": 10060,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Cf2ConMon-to-GoogleDNS-RITM0174824",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.73.1.64/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "8.8.4.4",
+                                "8.8.8.8"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "53",
+                                "443"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Cf2ConMon-to-WeEuPrdSNI-RITM0174824",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.73.1.64/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "40.118.81.46"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-1000",
+                    "priority": 1000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-AzureMonitor-RITM0148871",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "AzureMonitor",
+                                "40.118.89.88"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443",
+                                "1886",
+                                "12000"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-GuestAndHybridManagement,HTTPS-RITM0148871",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "GuestAndHybridManagement"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-1500",
+                    "priority": 1500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-AKS, ControlPlane",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "AzureCloud.NorthEurope",
+                                "AzureCloud.WestEurope"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "1194",
+                                "9000"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "AzdoAgents-to-Any,HTTP/S",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_AzdoAgents')]"
+                            ],
+                            "destinationAddresses": [
+                                "*"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "80",
+                                "443"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azdo-to-Github-SSH-RITM0142856",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_AzdoAgents')]"
+                            ],
+                            "destinationAddresses": [],
+                            "destinationIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_ALL_GitHub')]"
+                            ],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-Github-SSH-RITM0162647",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_Github-Enabled-Networks')]"
+                            ],
+                            "destinationAddresses": [],
+                            "destinationIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_ALL_GitHub')]"
+                            ],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-MicrosoftTeams-WVD",
+                            "ipProtocols": [
+                                "UDP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "13.107.64.0/18",
+                                "52.112.0.0/14",
+                                "52.120.0.0/14"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "3478",
+                                "3479",
+                                "3480",
+                                "3481"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-SmtpOffice-WVD",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "13.107.6.152/31",
+                                "13.107.18.10/31",
+                                "13.107.128.0/22",
+                                "23.103.160.0/20",
+                                "40.96.0.0/13",
+                                "40.104.0.0/15",
+                                "52.96.0.0/14",
+                                "131.253.33.215/32",
+                                "132.245.0.0/16",
+                                "150.171.32.0/22",
+                                "204.79.197.215/32"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-Outlook-WVD",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "40.92.0.0/15",
+                                "40.107.0.0/16",
+                                "52.100.0.0/14",
+                                "104.47.0.0/17"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "25"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-Rapid7,HTTPS-RITM0148871",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "3.120.196.152",
+                                "3.120.221.108"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "MCubeEventMgmt-HTTPS-RITM0180213",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.60.64/27",
+                                "10.72.60.96/27",
+                                "10.72.107.128/27"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "34.68.230.202"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "MCubeEventmgmt-SendGridRelayService-587-RITM0180213",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.60.64/27",
+                                "10.72.60.96/27",
+                                "10.72.107.128/27"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "52.57.139.126",
+                                "54.228.39.88",
+                                "108.128.229.184"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-2000",
+                    "priority": 2000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-ConfluentCloud-IPs, RITM0146173",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "35.164.160.48",
+                                "54.189.87.195",
+                                "50.112.169.67",
+                                "51.105.121.2",
+                                "35.160.65.90",
+                                "52.27.104.42",
+                                "52.32.162.41",
+                                "51.105.115.228",
+                                "51.105.115.146",
+                                "20.76.15.170",
+                                "54.187.140.158",
+                                "44.236.165.117",
+                                "35.155.214.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443",
+                                "9092"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-AzureCloud, RITM0146173",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "AzureCloud.WestEurope"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "9092"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-500",
+                    "priority": 500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "AzureDNS-to-ExternalAzureDNS,DNS,NTP-RITM0139075",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_DNS')]"
+                            ],
+                            "destinationAddresses": [
+                                "168.63.129.16"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "53",
+                                "123"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "IblxCach-to-PublicDNS,DNS-RITM0165841",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.5.0/29",
+                                "10.73.5.0/29"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "*"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "53"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "IblxExt-to-Akamai,DNS-RITM0172934",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.5.16/29",
+                                "10.73.5.16/29"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "23.14.128.185",
+                                "23.205.121.134",
+                                "23.207.197.166",
+                                "72.247.124.98",
+                                "104.122.95.88"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "53"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Akamai-to-Iblx-Ext,DNS-RITM0172934",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [
+                                "23.14.128.185",
+                                "23.205.121.134",
+                                "23.207.197.166",
+                                "72.247.124.98",
+                                "104.122.95.88"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "10.72.5.16/29",
+                                "10.73.5.16/29"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "53"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "IblxInt-to-AzureDNS,DNS-RITM0165841",
+                            "ipProtocols": [
+                                "TCP",
+                                "UDP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.5.8/29",
+                                "10.73.5.8/29"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "168.63.129.16"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "53"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-AzureKMS,HTTPS-RITM0148871",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "23.102.135.246"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "1688"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "Azure-to-Any,NTP-RITM0139075",
+                            "ipProtocols": [
+                                "UDP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ],
+                            "destinationAddresses": [
+                                "*"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "123"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "ahretail-webmethods-nonprd-allow-10270",
+                    "priority": 10270,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "WebmAcc-to-EDM-TCP-RITM0179096",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.52.64/26",
+                                "10.73.52.64/26"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "94.143.212.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "2222"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "WebmAcc-to-External-TCP-RITM0179096",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.52.64/26",
+                                "10.73.52.64/26"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "155.133.129.248"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "50219"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "ahretailwebmethods-nonprd-Internet-TCP-RITM0184092",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.52.64/26",
+                                "10.73.52.64/26"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.203.142.248",
+                                "194.78.122.58",
+                                "213.52.186.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "aahretail-webmethods-prd-allow-10370",
+                    "priority": 10370,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "WebmPrd-to-External-TCP-RITM0179096",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.128.192/26",
+                                "10.73.128.192/26"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "155.133.129.248"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "50219"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "WebmPrd-to-EDM-TCP-RITM0179096",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.52.64/26",
+                                "10.73.52.64/26"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "94.143.212.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "2222"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "ahretailwebmethods-prd-Internet-TCP-RITM0184092",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.128.192/26",
+                                "10.73.128.192/26"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.203.142.248",
+                                "194.78.122.58",
+                                "213.52.186.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "allow-nonprd-30000",
+                    "priority": 30000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "30010-Pallas-CF2-Subnet-to-SengridSMTP-Server-nonprod-RITM0181702",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.44.0/24",
+                                "10.72.244.0/24",
+                                "10.73.44.0/24",
+                                "10.73.244.0/24"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "52.57.139.126",
+                                "54.228.39.88",
+                                "108.128.229.184"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "FaciAeosAcc-to-Servicebus-nonprd-RITM0183472",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.27.48/28",
+                                "10.73.27.48/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "ServiceBus"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "5671",
+                                "5672",
+                                "9350-9354"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "webMethods-KuehneNagel-RITM0184093",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.33.16/28",
+                                "10.73.33.16/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "185.117.252.200"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "etoscid-webmethods-intermail-nonprd-RITM0184260-01",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.33.16/28",
+                                "10.73.33.16/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "93.95.4.175"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "webmethods-to-internet-nonprd-RITM0184095-01",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.33.16/28",
+                                "10.73.33.16/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "94.143.212.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "2222"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "webMethiods-Sendgrid_NONPRD-RITM0184249",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.33.16/28",
+                                "10.73.33.16/28",
+                                "10.72.14.176/28",
+                                "10.73.14.176/28",
+                                "10.72.14.192/28",
+                                "10.73.14.192/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "52.57.139.126",
+                                "54.228.39.88",
+                                "108.128.229.184"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "WebMethiods-Sendgrid_NONPRD-RITM0184257-01",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.52.32/28",
+                                "10.73.52.32/28",
+                                "10.72.52.48/28",
+                                "10.73.52.48/28",
+                                "10.72.52.64/26",
+                                "10.73.52.64/26",
+                                "10.72.52.128/29",
+                                "10.73.52.128/29"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "52.57.139.126",
+                                "54.228.39.88",
+                                "108.128.229.184"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "allow-prd-20000",
+                    "priority": 20000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "etoscoreretail-smtpsendgrid-prd-RITM0184261-01",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.12.48/28",
+                                "10.73.12.48/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "52.57.139.126",
+                                "54.228.39.88",
+                                "108.128.229.184"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "webmethods-to-internet-prd-RITM0184188-01",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.15.80/28",
+                                "10.73.15.80/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "94.143.212.179"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "2222"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "webmethods-to-internet-prd-RITM0184188-02",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.15.80/28",
+                                "10.73.15.80/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "185.117.252.200"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "22"
+                            ]
+                        },
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "WebMethiods-Sendgrid_PRD-RITM0184257-02",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.122.160/28",
+                                "10.73.122.160/28",
+                                "10.72.122.176/28",
+                                "10.73.122.176/28",
+                                "10.72.128.192/26",
+                                "10.73.128.192/26",
+                                "10.72.128.160/28",
+                                "10.73.128.160/28"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "52.57.139.126",
+                                "54.228.39.88",
+                                "108.128.229.184"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-2020",
+                    "priority": 2020,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "AzureCF2-to-Sendgrid-SMTPS-RITM0161499",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_Sendgrid-Enabled-Networks')]"
+                            ],
+                            "destinationAddresses": [
+                                "18.197.194.208",
+                                "54.228.39.88",
+                                "108.128.229.184",
+                                "52.57.139.126"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "587"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "tooling-sharedtooling-nonprd-allow-10030",
+                    "priority": 10030,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "SegWayPrd-to-IntersolvePrd-Https-RITM0164898",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.20.0/27",
+                                "10.73.20.0/27"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "185.113.197.138"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "tooling-sharedtooling-prd-allow-10020",
+                    "priority": 10020,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "NetworkRule",
+                            "name": "SegWayPrd-to-IntersolvePrd-Https-RITM0164898",
+                            "ipProtocols": [
+                                "TCP"
+                            ],
+                            "sourceAddresses": [
+                                "10.72.20.0/27",
+                                "10.73.20.0/27"
+                            ],
+                            "sourceIpGroups": [],
+                            "destinationAddresses": [
+                                "185.113.197.130"
+                            ],
+                            "destinationIpGroups": [],
+                            "destinationFqdns": [],
+                            "destinationPorts": [
+                                "443"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "applicationRuleCollection": {
+            "value": [
+                {
+                    "name": "integration-apim-prd-allow-10000",
+                    "priority": 10000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AzureApim-to-External, HTTP-HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "client.hip.live.com",
+                                "partner.hip.live.com",
+                                "ocsp.msocsp.com",
+                                "mscrl.microsoft.com",
+                                "crl.microsoft.com",
+                                "*.digicert.com",
+                                "oneocsp.microsoft.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.73.19.0/28"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "integration-apim-nonprd-allow-10500",
+                    "priority": 10500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AzureApim-NonPrd-to-External, HTTP-HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "client.hip.live.com",
+                                "partner.hip.live.com",
+                                "ocsp.msocsp.com",
+                                "mscrl.microsoft.com",
+                                "crl.microsoft.com",
+                                "*.digicert.com",
+                                "oneocsp.microsoft.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.73.18.0/28"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "gall-lz01-nonprd-allow-11000",
+                    "priority": 11000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "GallCowhillsAzure-to-Treazure-HTTPS-RITM0146988",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.servicebus.windows.net",
+                                "*.posengine.treazure-staging.cloud",
+                                "services-staging.treazure.nl"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.73.11.32/28",
+                                "10.73.11.64/28"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-1000",
+                    "priority": 1000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-AzureBackup, HTTPS-RITM0139075",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [
+                                "AzureBackup"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AzureWeeu-to-WindowsUpdate, HTTPS-RITM0139075",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [
+                                "WindowsUpdate"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-150",
+                    "priority": 150,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-MSDefender, HTTPS-RITM0173694",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [
+                                "MicrosoftActiveProtectionService"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-1500",
+                    "priority": 1500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-AKS, HTTPS-RITM0139075",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [
+                                "AzureKubernetesService"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-Mulesoft,HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.anypoint.mulesoft.com",
+                                "anypoint.mulesoft.com",
+                                "arm-auth-proxy.prod.cloudhub.io",
+                                "exchange2-asset-manager-kprod.s3.amazonaws.com",
+                                "arm-auth-proxy.prod-eu.msap.io",
+                                "exchange2-asset-manager-kprod-eu.s3.eu-central-1.amazonaws.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-AzureDevops, HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.azurewebsites.net",
+                                "*.blob.core.windows.net",
+                                "*.gallerycdn.vsassets.io",
+                                "*.nuget.org",
+                                "*.visualstudio.com",
+                                "*.vsassets.io",
+                                "*.vstmrblob.vsassets.io",
+                                "aadcdn.msauth.net",
+                                "aadcdn.msftauth.net",
+                                "aexprodea1.vsaex.visualstudio.com",
+                                "amcdn.msftauth.net",
+                                "amp.azure.net",
+                                "app.vssps.visualstudio.com",
+                                "cdn.vsassets.io",
+                                "gallerycdn.vsassets.io",
+                                "live.com",
+                                "login.live.com",
+                                "login.microsoftonline.com",
+                                "management.core.windows.net",
+                                "microsoft.com",
+                                "microsoftonline.com",
+                                "static2.sharepointonline.com",
+                                "visualstudio.com",
+                                "windows.net"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-GitHubRules, HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "github.com",
+                                "api.github.com",
+                                "*.actions.githubusercontent.com",
+                                "raw.githubusercontent.com",
+                                "github-releases.githubusercontent.com",
+                                "github-registry-files.githubusercontent.com",
+                                "codeload.github.com",
+                                "*.pkg.github.com",
+                                "pkg-cache.githubusercontent.com",
+                                "pkg-containers.githubusercontent.com",
+                                "pkg-containers-az.githubusercontent.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AzureImageBuilds-Linux, HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.mirror.rackspace.com",
+                                "*.fedoraproject.org",
+                                "epel.mirror.constant.com",
+                                "epel.mirror.shastacoe.net",
+                                "files.pythonhosted.org",
+                                "mirror.arizona.edu",
+                                "*.genesisadaptive.com",
+                                "mirror.coastal.edu",
+                                "mirror.cs.pitt.edu",
+                                "mirror.dal.nexril.net",
+                                "mirror.dst.ca",
+                                "mirror.es.its.nyu.edu",
+                                "mirror.mrjester.net",
+                                "mirror.prgmr.com",
+                                "mirror.math.princeton.edu",
+                                "mirror.rnet.missouri.edu",
+                                "mirror.sfo12.us.leaseweb.net",
+                                "mirror.siena.edu",
+                                "mirror.steadfastnet.com",
+                                "mirror.us-midwest-1.nexcess.net",
+                                "mirror.vcu.edu",
+                                "mirrors.kernel.org",
+                                "mirrors.liquidweb.com",
+                                "mirrors.sonic.net",
+                                "mirrors.upr.edu",
+                                "mirrors.xmission.com",
+                                "packages.oit.ncsu.edu",
+                                "pubmirror1.math.uh.edu"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.0.0/16"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AzureImageBuilds-Windows, HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "chocolatey.org",
+                                "community.chocolatey.org",
+                                "*.digicert.com",
+                                "enterpriseregistration.windows.net",
+                                "login.live.com",
+                                "login.microsoftonline.com",
+                                "ocsp.digicert.com",
+                                "packages.chocolatey.org",
+                                "www.msftconnecttest.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.0.0/16"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-ContainerServices, HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "auth.docker.io",
+                                "production.cloudflare.docker.com",
+                                "registry-1.docker.io",
+                                "ghcr.io",
+                                "k8s.gcr.io",
+                                "quay.io",
+                                "*.quay.io",
+                                "storage.googleapis.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-Office365-WVD, HTTP-HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.aadrm.com",
+                                "*.azure.com",
+                                "*.azure-apim.net",
+                                "*.azurerms.com",
+                                "*.cortana.ai",
+                                "*.entrust.net",
+                                "*.geotrust.com",
+                                "*.hip.live.com",
+                                "*.lync.com",
+                                "*.microsoft.com",
+                                "*.microsoftonline.com",
+                                "*.microsoftonline-p.com",
+                                "*.msauth.net",
+                                "*.msauthimages.net",
+                                "*.msecnd.net",
+                                "*.msedge.net",
+                                "*.msftauth.net",
+                                "*.msftauthimages.net",
+                                "*.msftidentity.com",
+                                "*.msidentity.com",
+                                "*.mstea.ms",
+                                "*.o365weve.com",
+                                "*.office.com",
+                                "*.office.net",
+                                "*.office365.com",
+                                "*.officeapps.live.com",
+                                "*.omniroot.com",
+                                "*.onenote.com",
+                                "*.outlook.com",
+                                "*.phonefactor.net",
+                                "*.portal.cloudappsecurity.com",
+                                "*.powerapps.com",
+                                "*.public-trust.com",
+                                "*.secure.skypeassets.com",
+                                "*.sfbassets.com",
+                                "*.sharepointonline.com",
+                                "*.skype.com",
+                                "*.svc.ms",
+                                "*.symcb.com",
+                                "*.symcd.com",
+                                "*.verisign.com",
+                                "*.verisign.net",
+                                "*.windows.com",
+                                "*.windows.net",
+                                "*cdn.onenote.net",
+                                "account.activedirectory.windowsazure.com",
+                                "admin.onedrive.com",
+                                "aholddelhaize.sharepoint.com",
+                                "aholddelhaize-admin.sharepoint.com",
+                                "aholddelhaize-files.sharepoint.com",
+                                "aholddelhaize-my.sharepoint.com",
+                                "aholddelhaize-myfiles.sharepoint.com",
+                                "ajax.aspnetcdn.com",
+                                "apis.live.net",
+                                "apps.identrust.com",
+                                "assets.onestore.ms",
+                                "auth.gfx.ms",
+                                "autodiscover.aholddelhaize.onmicrosoft.com",
+                                "autologon.microsoftazuread-sso.com",
+                                "cacerts.digicert.com",
+                                "cdn.odc.officeapps.live.com",
+                                "cdn.optimizely.com",
+                                "cdn.sharepointonline.com",
+                                "cdn.uci.officeapps.live.com",
+                                "cert.int-x3.letsencrypt.org",
+                                "clientconfig.microsoftonline-p.net",
+                                "crl.globalsign.com",
+                                "crl.globalsign.net",
+                                "crl.identrust.com",
+                                "crl3.digicert.com",
+                                "crl4.digicert.com",
+                                "ecn.dev.virtualearth.net",
+                                "g.live.com",
+                                "isrg.trustid.ocsp.identrust.com",
+                                "ocsp.digicert.com",
+                                "ocsp.globalsign.com",
+                                "ocsp.int-x3.letsencrypt.org",
+                                "ocsp.msocsp.com",
+                                "ocsp2.globalsign.com",
+                                "ocspx.digicert.com",
+                                "office.live.com",
+                                "officeapps.live.com",
+                                "officecdn.microsoft.com.edgesuite.net",
+                                "oneclient.sfx.ms",
+                                "platform.linkedin.com",
+                                "policykeyservice.dc.ad.msft.net",
+                                "privatecdn.sharepointonline.com",
+                                "prod.msocdn.com",
+                                "publiccdn.sharepointonline.com",
+                                "roaming.officeapps.live.com",
+                                "secure.globalsign.com",
+                                "shellprod.msocdn.com",
+                                "spoprod-a.akamaihd.net",
+                                "static.sharepointonline.com",
+                                "www.digicert.com",
+                                "www.onedrive.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "enablement-genericwebcategory-prd-allow-200",
+                    "priority": 200,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Allowed Liability Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "AlcoholAndTobacco",
+                                "lingerieandswimsuits"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Allowed High-bandwidth Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "imagesharing",
+                                "streamingmediaanddownloads",
+                                "downloadsites",
+                                "entertainment"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Allowed Business-Use Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "business",
+                                "computersandtechnology",
+                                "education",
+                                "finance",
+                                "forumsandnewsgroups",
+                                "government",
+                                "healthandmedicine",
+                                "informationsecurity",
+                                "jobsearch",
+                                "news",
+                                "nonprofitsandngos",
+                                "personalsites",
+                                "professionalnetworking",
+                                "searchenginesandportals",
+                                "translators",
+                                "webrepositoryandstorage",
+                                "webbasedemail"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Allowed Productivity-Loss Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "chat",
+                                "instantmessaging",
+                                "shopping",
+                                "socialnetworking"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Allowed General-Surfing Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "arts",
+                                "fashionandbeauty",
+                                "general",
+                                "greetingcards",
+                                "leisureandrecreation",
+                                "natureandconservation",
+                                "politicsandlaw",
+                                "realestate",
+                                "religion",
+                                "restaurantsanddining",
+                                "sports",
+                                "transportation",
+                                "travel"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-2000",
+                    "priority": 2000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AzureWeeu-to-ConfluentCloud, HTTPS-RITM0146173",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "confluent.cloud",
+                                "*.confluent.cloud",
+                                "*.confluent.io"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "generic-allow-500",
+                    "priority": 500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-AllowedServices, HTTP",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "crl.affirmtrust.com",
+                                "echoapi.cloudapp.net",
+                                "crl.digicert.com",
+                                "crl1.digicert.com",
+                                "crl2.digicert.com",
+                                "crl3.digicert.com",
+                                "crl4.digicert.com",
+                                "ocsp.digicert.com",
+                                "crl.entrust.net",
+                                "ocsp.entrust.net",
+                                "crl.microsoft.com",
+                                "mscrl.microsoft.com",
+                                "ocsp.msocsp.com",
+                                "oneocsp.microsoft.com",
+                                "settings-win.data.microsoft.com",
+                                "ocsp.pki.goog",
+                                "crl.pki.goog",
+                                "crl.verisign.com",
+                                "ocsp.verisign.com",
+                                "*crl.verisign.com",
+                                "*.gvt1.com",
+                                "*.gvt2.com",
+                                "*.gvt3.com",
+                                "adl.windows.com",
+                                "*.ubuntu.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Azure-to-AllowedServices, HTTPS",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "storage.live.com",
+                                "azureprofilerfrontdoor.cloudapp.net",
+                                "mwf-service.akamaized.net",
+                                "*ms-com.akamaized.net",
+                                "*microsoft-com.akamaized.net",
+                                "*.microsoft.com",
+                                "*.azure.com",
+                                "*.azure.net",
+                                "*.google.nl",
+                                "*.google.com",
+                                "*.googleapis.com",
+                                "*.googleusercontent.com",
+                                "*.windows.com",
+                                "*.office.net",
+                                "*.service-now.com",
+                                "*.mulesoft.com",
+                                "*.sysinternals.com",
+                                "aka.ms",
+                                "*.aka.ms",
+                                "*.windows.net",
+                                "*.visualstudio.com",
+                                "*.msftcloudes.com",
+                                "*.azure-automation.net",
+                                "*.endpoint.ingress.rapid7.com",
+                                "*.insight.rapid7.com",
+                                "api.snapcraft.io",
+                                "dl.iuscommunity.org",
+                                "mirrors.fedoraproject.org",
+                                "dl.fedoraproject.org",
+                                "motd.ubuntu.com",
+                                "changelogs.ubuntu.com",
+                                "entropy.ubuntu.com",
+                                "packages.efficios.com",
+                                "raw.githubusercontent.com",
+                                "repo.ius.io",
+                                "usage.projectcalico.org",
+                                "*.microsoftmetrics.com",
+                                "*.metrics.nsatc.net",
+                                "*.msftcloudes.com",
+                                "dc.services.visualstudio.com",
+                                "*.services.visualstudio.com",
+                                "client.wns.windows.com",
+                                "clientconfig.passport.net",
+                                "*pypi.python.org",
+                                "pypi.org",
+                                "*.pypi.org",
+                                "pythonhosted.org",
+                                "*.pythonhosted.org",
+                                "*.powershellgallery.com",
+                                "*.azureedge.net",
+                                "*.gvt1.com",
+                                "*.gvt2.com",
+                                "*.gvt3.com",
+                                "*.gstatic.com",
+                                "slproweb.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "enablement-genericwebcategory-prd-block-65000",
+                    "priority": 65000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Deny"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Blocked Liability Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "childabuseimages",
+                                "childinappropriate",
+                                "criminalactivity",
+                                "datingandpersonals",
+                                "gambling",
+                                "hacking",
+                                "hateandintolerance",
+                                "illegaldrug",
+                                "illegalsoftware",
+                                "marijuana",
+                                "nudity",
+                                "pornographyandsexuallyexplicit",
+                                "schoolcheating",
+                                "selfharm",
+                                "sexeducation",
+                                "tasteless",
+                                "violence",
+                                "weapons"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Blocked High-bandwidth Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "peertopeer"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Blocked Business-Use Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "privateipaddresses"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Blocked Productivity-Loss Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "advertisementsandpopups",
+                                "cults",
+                                "games"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "Blocked Uncategorized Webcategories",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                },
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "webCategories": [
+                                "uncategorized"
+                            ],
+                            "targetFqdns": [],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": [
+                                "[resourceId('Microsoft.Network/ipGroups', 'GR_AHTECH_Azure')]"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "ahretail-finance01-nonprd-allow-11520",
+                    "priority": 11520,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksFinDev-to-Internet-HTTPS-RITM0177963",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "qa.auth.eu.tobaccotracing.com",
+                                "qa.router.eu.tobaccotracing.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.31.0/27",
+                                "10.73.31.0/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksFinTst-to-Internet-HTTPS-RITM0177963",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "qa.auth.eu.tobaccotracing.com",
+                                "qa.router.eu.tobaccotracing.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.31.96/27",
+                                "10.73.31.96/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksFinAcc-to-Internet-HTTPS-RITM0177963",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "qa.auth.eu.tobaccotracing.com",
+                                "qa.router.eu.tobaccotracing.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.31.128/27",
+                                "10.73.31.128/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "ahretail-finance01-prd-allow-11510",
+                    "priority": 11510,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksFinAcc-to-Internet-HTTPS-RITM0177963",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "prod.auth.eu.tobaccotracing.com",
+                                "prod.router.eu.tobaccotracing.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.32.0/27",
+                                "10.73.32.0/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "ahretail-webmethods-nonprd-allow-11610",
+                    "priority": 11610,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "CF2IntergrationServer-to-ServiceNowAcc-HTTPS-RITM0175368",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "aholdacc.service-now.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.52.64/26",
+                                "10.73.52.64/26"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "ahretail-webmethods-prd-allow-11600",
+                    "priority": 11600,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "CF2IntergrationServer-to-ServiceNowPrd-HTTPS-RITM0175368",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "ahold.service-now.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.52.64/26",
+                                "10.73.52.64/26"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "allow-nonprd-30000",
+                    "priority": 30000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "vnet-ahretailretailfinance01-nonprd-to-Debian-80-RITM0179950",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "security.debian.org",
+                                "deb.debian.org",
+                                "archive.ubuntu.com",
+                                "security.ubuntu.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.31.56/29",
+                                "10.73.105.208/28"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "FaciAeosAcc-to-internet-nonprd-RITM0183472",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.powerbi.com",
+                                "*.analysis.windows.net",
+                                "*.login.windows.net",
+                                "*.login.live.com",
+                                "*.aadcdn.msauth.net",
+                                "*.servicebus.windows.net",
+                                "*.frontend.clouddatahub.net",
+                                "*.core.windows.net",
+                                "login.microsoftonline.com",
+                                "*.msftncsi.com",
+                                "*.microsoftonline-p.com",
+                                "dc.services.visualstudio.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.27.48/28",
+                                "10.73.27.48/28"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "allow-prd-20000",
+                    "priority": 20000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "vnet-ahretailretailstores01shd-prd-to-Debian-80-RITM0179950",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "security.debian.org",
+                                "deb.debian.org",
+                                "archive.ubuntu.com",
+                                "security.ubuntu.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.118.208/29",
+                                "10.73.118.192/29"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "vnet-ahretailbusinesssupportshd-prd-to-Debian-80-RITM0179950",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "security.debian.org",
+                                "deb.debian.org",
+                                "archive.ubuntu.com",
+                                "security.ubuntu.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.111.64/29",
+                                "10.73.111.96/29"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "vnet-ahretailretailmerchandisemdmshd-prd-to-debian-80-RITM0179950",
+                            "protocols": [
+                                {
+                                    "protocolType": "Http",
+                                    "port": 80
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "security.debian.org",
+                                "deb.debian.org",
+                                "archive.ubuntu.com",
+                                "security.ubuntu.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.16.0/26",
+                                "10.73.16.0/26"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "gall-lz01-nonprd-allow-13000",
+                    "priority": 13000,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "GallCowhillsAzure-to-ServicebusTreazureStagingRosweb-Https-RITM0164447",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.servicebus.windows.net",
+                                "*.treazure-staging.cloud",
+                                "services-staging.treazure.nl",
+                                "roswebmonitor.cowhills.nl"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.11.64/28",
+                                "10.73.11.64/28",
+                                "10.72.11.32/28",
+                                "10.73.11.32/28"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "gsoservices-04-nonprd-allow-17030",
+                    "priority": 17030,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksNonPrd-to-AzureConfluentCloud-Https-RITM0170725",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.azure.confluent.cloud",
+                                "*.aws.confluent.cloud"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.122.0/26",
+                                "10.73.122.0/26"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksNonPrd-to-AzureConfluentCloud-Https,TCP-RITM0170725",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 9092
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.azure.confluent.cloud",
+                                "*.aws.confluent.cloud"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.122.0/26",
+                                "10.73.122.0/26"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "gsoservices-04-prd-allow-17020",
+                    "priority": 17020,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksPrd-to-AzureConfluentCloud-Https-RITM0170725",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.azure.confluent.cloud",
+                                "*.aws.confluent.cloud"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.107.0/24",
+                                "10.73.107.0/24"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksPrd-to-AzureConfluentCloud-Https,TCP-RITM0170725",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 9092
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "*.azure.confluent.cloud",
+                                "*.aws.confluent.cloud"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.107.0/24",
+                                "10.73.107.0/24"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "gsotech-gsoservices-03-prd-allow-11660",
+                    "priority": 11660,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "RpaPrd-to-DXCSecure2-HTTPS-RITM0176524",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "secure2.ahold.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.68.0/24",
+                                "10.73.68.0/24"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "tooling-sharedtooling-nonprd-allow-11500",
+                    "priority": 11500,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksShto01DTA-to-apiMopinion-HTTPS-RITM0161499",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "api.mopinion.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.70.48/28",
+                                "10.72.70.96/28",
+                                "10.72.70.0/27",
+                                "10.73.70.0/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        },
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksShto01AccTstAcc-to-CoupaTstAcc-HTTPS-RITM0161499",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "aholdeurope-stage.coupahost.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.70.96/28",
+                                "10.72.70.0/27",
+                                "10.73.70.0/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                },
+                {
+                    "name": "tooling-sharedtooling-prd-allow-11490",
+                    "priority": 11490,
+                    "ruleCollectionType": "FirewallPolicyFilterRuleCollection",
+                    "action": {
+                        "type": "Allow"
+                    },
+                    "rules": [
+                        {
+                            "ruleType": "ApplicationRule",
+                            "name": "AksShto01Prd-to-CoupaPrd-HTTPS-RITM0161499",
+                            "protocols": [
+                                {
+                                    "protocolType": "Https",
+                                    "port": 443
+                                }
+                            ],
+                            "fqdnTags": [],
+                            "targetFqdns": [
+                                "aholdeurope.coupahost.com"
+                            ],
+                            "targetUrls": [],
+                            "terminateTLS": false,
+                            "sourceAddresses": [
+                                "10.72.20.0/27",
+                                "10.73.20.0/27"
+                            ],
+                            "destinationAddresses": [],
+                            "sourceIpGroups": []
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
