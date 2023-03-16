@@ -1128,12 +1128,19 @@
             "apiVersion": "2019-09-01",
             "name": "[variables('bastionHosts_azfw_hub_bastion_name')]",
             "location": "[parameters('location')]",
+            "sku":{
+                "name": "Standard"
+            },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_hub_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_hub_name'), 'AzureBastionSubnet')]"
             ],
             "properties": {
-                "dnsName": "bst-88091e28-bfb2-40d7-a372-17daafc8cbc1.bastion.azure.com",
+                "scaleUnits": 2,
+                "enableTunneling": false,
+                "enableIpConnect": true,
+                "disableCopyPaste": false,
+                "enableShareableLink": true,
                 "ipConfigurations": [
                     {
                         "name": "IpConf",
@@ -1155,12 +1162,19 @@
             "apiVersion": "2019-09-01",
             "name": "[variables('bastionHosts_onprem_bastion_name')]",
             "location": "[parameters('location_onprem')]",
+            "sku":{
+                "name": "Standard"
+            },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_on_prem_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_on_prem_name'), 'AzureBastionSubnet')]"
             ],
             "properties": {
-                "dnsName": "bst-bc2e730d-498d-4f4d-828c-92888981428a.bastion.azure.com",
+                "scaleUnits": 2,
+                "enableTunneling": false,
+                "enableIpConnect": true,
+                "disableCopyPaste": false,
+                "enableShareableLink": true,
                 "ipConfigurations": [
                     {
                         "name": "IpConf",
@@ -1182,16 +1196,23 @@
             "apiVersion": "2019-09-01",
             "name": "[variables('bastionHosts_spoke1_bastion_name')]",
             "location": "[parameters('location')]",
+            "sku":{
+                "name": "Standard"
+            },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_spoke1_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_spoke1_name'), 'AzureBastionSubnet')]"
             ],
             "properties": {
-                "dnsName": "bst-fd97b18a-2f11-4105-84f4-5dc4f4a912f1.bastion.azure.com",
                 "ipConfigurations": [
                     {
                         "name": "IpConf",
                         "properties": {
+                        "scaleUnits": 2,
+                        "enableTunneling": false,
+                        "enableIpConnect": true,
+                        "disableCopyPaste": false,
+                        "enableShareableLink": true,
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_spoke1_ip_name'))]"
@@ -1209,12 +1230,19 @@
             "apiVersion": "2019-09-01",
             "name": "[variables('bastionHosts_spoke2_bastion_name')]",
             "location": "[parameters('location')]",
+            "sku":{
+                "name": "Standard"
+            },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_spoke2_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_spoke2_name'), 'AzureBastionSubnet')]"
             ],
             "properties": {
-                "dnsName": "bst-dd620c26-35a0-4473-ae4b-64c84600a8c8.bastion.azure.com",
+                "scaleUnits": 2,
+                "enableTunneling": false,
+                "enableIpConnect": true,
+                "disableCopyPaste": false,
+                "enableShareableLink": true,
                 "ipConfigurations": [
                     {
                         "name": "IpConf",
