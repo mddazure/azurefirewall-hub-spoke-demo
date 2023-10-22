@@ -87,7 +87,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_demo_pubip_name')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -101,7 +101,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_hub_gw_pub_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -115,7 +115,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_hub_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -129,7 +129,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_on_prem_gw_pub_ip_name')]",
             "location": "[parameters('location_onprem')]",
             "sku": {
@@ -143,7 +143,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_on_prem_ip_name')]",
             "location": "[parameters('location_onprem')]",
             "sku": {
@@ -157,7 +157,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_spoke1_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -171,7 +171,7 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('publicIPAddresses_azfw_spoke2_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -185,7 +185,7 @@
         },
         {
             "type": "Microsoft.Network/routeTables",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('routeTables_azfw_all_to_fw_name')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -212,7 +212,7 @@
         },
         {
             "type": "Microsoft.Network/routeTables",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('routeTables_azfw_spokes_via_fw_name')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -239,7 +239,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('virtualNetworks_azfw_on_prem_name')]",
             "location": "[parameters('location_onprem')]",
             "properties": {
@@ -339,7 +339,7 @@
         
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('networkInterfaces_onprem_name')]",
             "location": "[parameters('location_onprem')]",
             "dependsOn": [
@@ -366,7 +366,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('networkInterfaces_spokevm1_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -393,7 +393,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('networkInterfaces_spokevm2_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -420,7 +420,7 @@
         },
         {
             "type": "Microsoft.Network/routeTables/routes",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('routeTables_azfw_all_to_fw_name'), '/internet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/routeTables', variables('routeTables_azfw_all_to_fw_name'))]"
@@ -433,7 +433,7 @@
         },
         {
             "type": "Microsoft.Network/routeTables/routes",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('routeTables_azfw_all_to_fw_name'), '/onpremviafw')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/routeTables', variables('routeTables_azfw_all_to_fw_name'))]"
@@ -446,7 +446,7 @@
         },
         {
             "type": "Microsoft.Network/routeTables/routes",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('routeTables_azfw_spokes_via_fw_name'), '/spoke2-via-fw')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/routeTables', variables('routeTables_azfw_spokes_via_fw_name'))]"
@@ -459,7 +459,7 @@
         },
         {
             "type": "Microsoft.Network/routeTables/routes",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('routeTables_azfw_spokes_via_fw_name'), '/spokes-via-fw')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/routeTables', variables('routeTables_azfw_spokes_via_fw_name'))]"
@@ -472,7 +472,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_hub_name'), '/AzureBastionSubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_hub_name'))]"
@@ -487,7 +487,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_on_prem_name'), '/AzureBastionSubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_on_prem_name'))]"
@@ -502,7 +502,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_spoke1_name'), '/AzureBastionSubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_spoke1_name'))]"
@@ -517,7 +517,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_spoke2_name'), '/AzureBastionSubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_spoke2_name'))]"
@@ -532,7 +532,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_hub_name'), '/AzureFirewallSubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_hub_name'))]"
@@ -546,7 +546,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_hub_name'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_hub_name'))]"
@@ -560,7 +560,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_on_prem_name'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_on_prem_name'))]"
@@ -575,7 +575,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_on_prem_name'), '/GatewaySubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_on_prem_name'))]"
@@ -1125,7 +1125,7 @@
     
     {
             "type": "Microsoft.Network/bastionHosts",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('bastionHosts_azfw_hub_bastion_name')]",
             "location": "[parameters('location')]",
             "sku":{
@@ -1159,7 +1159,7 @@
         },
         {
             "type": "Microsoft.Network/bastionHosts",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('bastionHosts_onprem_bastion_name')]",
             "location": "[parameters('location_onprem')]",
             "sku":{
@@ -1193,7 +1193,7 @@
         },
         {
             "type": "Microsoft.Network/bastionHosts",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('bastionHosts_spoke1_bastion_name')]",
             "location": "[parameters('location')]",
             "sku":{
@@ -1227,7 +1227,7 @@
         },
         {
             "type": "Microsoft.Network/bastionHosts",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('bastionHosts_spoke2_bastion_name')]",
             "location": "[parameters('location')]",
             "sku":{
@@ -1261,7 +1261,7 @@
         },
         {
             "type": "Microsoft.Network/connections",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('connections_hub_to_onprem_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -1286,7 +1286,7 @@
         },
         {
             "type": "Microsoft.Network/connections",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('connections_onprem_to_hub_name')]",
             "location": "[parameters('location_onprem')]",
             "dependsOn": [
@@ -1311,7 +1311,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworkGateways",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('virtualNetworkGateways_azfw_hub_gw_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -1357,7 +1357,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworkGateways",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('virtualNetworkGateways_azfw_on_prem_gw_name')]",
             "location": "[parameters('location_onprem')]",
             "dependsOn": [
@@ -1403,7 +1403,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('virtualNetworks_azfw_spoke1_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -1447,7 +1447,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('virtualNetworks_azfw_spoke2_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -1491,7 +1491,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_spoke1_name'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_spoke1_name'))]",
@@ -1510,7 +1510,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_spoke2_name'), '/default')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_spoke2_name'))]",
@@ -1529,7 +1529,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_hub_name'), '/GatewaySubnet')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_hub_name'))]",
@@ -1548,7 +1548,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_hub_name'), '/hub-spoke1')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_hub_name'))]",
@@ -1573,7 +1573,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_hub_name'), '/hub-spoke2')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_hub_name'))]",
@@ -1598,7 +1598,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_spoke1_name'), '/spoke1-hub')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_spoke1_name'))]",
@@ -1623,7 +1623,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[concat(variables('virtualNetworks_azfw_spoke2_name'), '/spoke2-hub')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_azfw_spoke2_name'))]",
@@ -1648,7 +1648,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2023-05-01",
             "name": "[variables('virtualNetworks_azfw_hub_name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
