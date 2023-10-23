@@ -87,17 +87,25 @@
     "resources": [
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2023-05-01",
+            "apiVersion": "2023-04-01",
             "name": "[variables('publicIPAddresses_azfw_demo_pubip_name')]",
             "location": "[parameters('location')]",
+            
             "sku": {
-                "name": "Standard"
+                "name": "Standard",
+                "tier": "Regional"
             },
             "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
-                "idleTimeoutInMinutes": 4                
-            }
+                "idleTimeoutInMinutes": 4               
+            },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ]
+
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
@@ -115,73 +123,104 @@
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2023-05-01",
+            "apiVersion": "2023-04-01",
             "name": "[variables('publicIPAddresses_azfw_hub_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
-                "name": "Standard"
+                "name": "Standard",
+                "tier": "Regional"
             },
             "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 4                
-            }
+            },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ]
+            
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2023-05-01",
+            "apiVersion": "2023-04-01",
             "name": "[variables('publicIPAddresses_azfw_on_prem_gw_pub_ip_name')]",
             "location": "[parameters('location_onprem')]",
             "sku": {
-                "name": "Basic"
+                "name": "Basic",
+                "tier": "Regional"
             },
             "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4
-            }
+            },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ]
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2023-05-01",
+            "apiVersion": "2023-04-01",
             "name": "[variables('publicIPAddresses_azfw_on_prem_ip_name')]",
             "location": "[parameters('location_onprem')]",
             "sku": {
-                "name": "Standard"
+                "name": "Standard",
+                "tier": "Regional"
             },
             "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 4
-            }
+            },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ]
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2023-05-01",
+            "apiVersion": "2023-04-01",
             "name": "[variables('publicIPAddresses_azfw_spoke1_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
-                "name": "Standard"
+                "name": "Standard",
+                "tier": "Regional"	
             },
             "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 4
-            }
+            },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ]
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "apiVersion": "2023-05-01",
+            "apiVersion": "2023-04-01",
             "name": "[variables('publicIPAddresses_azfw_spoke2_ip_name')]",
             "location": "[parameters('location')]",
             "sku": {
-                "name": "Standard"
+                "name": "Standard",
+                "tier": "Regional"	
             },
             "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 4               
-            }
+            },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ]
         },
         {
             "type": "Microsoft.Network/routeTables",
