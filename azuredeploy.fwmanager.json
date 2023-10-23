@@ -155,12 +155,7 @@
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4
-            },
-            "zones": [
-                "1",
-                "2",
-                "3"
-            ]
+            }
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
