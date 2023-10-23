@@ -1230,6 +1230,42 @@
                 ]
             }
         },
+        /*{
+            "type": "Microsoft.Network/bastionHosts",
+            "apiVersion": "2023-04-01",
+            "name": "[variables('bastionHosts_spoke1_bastion_name')]",
+            "location": "[parameters('location')]",
+            "sku":{
+                "name": "Standard"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_spoke1_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_spoke1_name'), 'AzureBastionSubnet')]"
+            ],
+            "properties": {                   
+                "properties": {
+                "scaleUnits": 2,
+                "enableTunneling": false,
+                "enableIpConnect": true,
+                "disableCopyPaste": false,
+                "enableShareableLink": true,
+                "ipConfigurations": [
+                    {
+                        "name": "IpConf",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_spoke1_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_spoke1_name'), 'AzureBastionSubnet')]"
+                            }
+                        }
+                    }
+                ]
+            }
+            }
+        },*/
         {
             "type": "Microsoft.Network/bastionHosts",
             "apiVersion": "2023-04-01",
@@ -1243,15 +1279,15 @@
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworks_azfw_spoke1_name'), 'AzureBastionSubnet')]"
             ],
             "properties": {
+                "scaleUnits": 2,
+                "enableTunneling": false,
+                "enableIpConnect": true,
+                "disableCopyPaste": false,
+                "enableShareableLink": true,
                 "ipConfigurations": [
                     {
                         "name": "IpConf",
                         "properties": {
-                        "scaleUnits": 2,
-                        "enableTunneling": false,
-                        "enableIpConnect": true,
-                        "disableCopyPaste": false,
-                        "enableShareableLink": true,
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_azfw_spoke1_ip_name'))]"
