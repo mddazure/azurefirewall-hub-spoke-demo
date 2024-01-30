@@ -54,7 +54,7 @@ Password:
 Azfwdem01234
 ```
 
-Open a command promppt as administrator. Copy and run script to the VM to generate traffic.
+Open a command prompt as administrator, copy and run this script to the VM to generate traffic:
 ```
 powershell -ExecutionPolicy Unrestricted Invoke-WebRequest -Uri https://raw.githubusercontent.com/mddazure/azurefirewall-hub-spoke-demo/master/loop.bat -OutFile 'C:\\Users\\AzureAdmin\\Desktop\\loop.bat'
 ```
