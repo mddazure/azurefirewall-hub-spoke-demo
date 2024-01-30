@@ -40,4 +40,40 @@ Deploys Premium SKU firewall with Firewall Policy.
 
 ![Topology](images/topology.png)
 
+## Explore
+
+Log on to spokevm1.
+
+Username:
+```
+azfw
+```
+
+Password:
+```
+Azfwdem01234
+```
+
+Copy and run script to the VM to generate traffic.
+```
+powershell -ExecutionPolicy Unrestricted Invoke-WebRequest -Uri https://raw.githubusercontent.com/mddazure/azurefirewall-hub-spoke-demo/master/loop.bat -OutFile 'C:\\Users\\azfw\\Desktop\\loop.bat'
+```
+This script:
+- continuously accesses the web servers on the other VMs in the lab
+- tries to access ipconfig.io with the Blacksun exploit to test IDPS
+- accesses a website in the "weapons" category to test URL filtering 
+```
+for /L %%x IN () DO (curl 192.168.1.4 
+echo:
+curl 192.168.2.4
+echo:
+curl 172.16.0.4
+echo:
+echo "this machine's ip address is "
+curl -k -A "BlackSun" https://ipconfig.io/ip
+echo:
+curl -k https://www.colt.com
+echo:
+timeout /t 5) 
+```
 
