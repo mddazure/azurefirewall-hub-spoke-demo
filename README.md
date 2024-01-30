@@ -56,7 +56,7 @@ Azfwdem01234
 
 Copy and run script to the VM to generate traffic.
 ```
-powershell -ExecutionPolicy Unrestricted Invoke-WebRequest -Uri https://raw.githubusercontent.com/mddazure/azurefirewall-hub-spoke-demo/master/loop.bat -OutFile 'C:\\Users\\azfw\\Desktop\\loop.bat'
+powershell -ExecutionPolicy Unrestricted Invoke-WebRequest -Uri https://raw.githubusercontent.com/mddazure/azurefirewall-hub-spoke-demo/master/loop.bat -OutFile 'C:\\Users\\AzureAdmin\\Desktop\\loop.bat'
 ```
 This script:
 - continuously accesses the web servers on the other VMs in the lab

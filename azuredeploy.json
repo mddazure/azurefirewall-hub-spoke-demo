@@ -4,14 +4,14 @@
     "parameters": {
         "adminUsername": {
             "type": "string",
-            "defaultValue": "azfw",
+            "defaultValue": "AzureAdmin",
             "metadata": {
               "description": "Username for the Virtual Machine."
             }
           },
           "adminPassword": {
             "type": "securestring",
-            "defaultValue": "Nienke040598",
+            "defaultValue": "Azfwdem01234",
             "metadata": {
               "description": "Password for the Virtual Machine."
             }
