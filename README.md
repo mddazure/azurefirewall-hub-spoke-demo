@@ -46,7 +46,7 @@ Log on to spokevm1.
 
 Username:
 ```
-azfw
+AzureAdmin
 ```
 
 Password:
